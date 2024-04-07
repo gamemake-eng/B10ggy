@@ -2,22 +2,22 @@
 	"blog": "Test Blog",
 	"post_template": "template.html",
 	"homepage_template": "home.html",
-	"author": "greg heffley",
+	"author": "Greg Heffley",
 	
 	"plugins": {
 		"copyright": "copyright.lua"
 	},
 	"home":{
-		"item": "<p>@title</p>"
+		"item": "<h2>@title</h2>"
 	},
 	"posts": [
 		{
-			"title": "How i died",
+			"title": "How I died",
 			"body": "posts/howidied.html",
 			"copyright": "<p>Copyright 2024-@year @symbolC</p>"
 		},
 		{
-			"title": "I killed my dog lol",
+			"title": "I killed Manny lol",
 			"body": "posts/dog.html",
 			"copyright": "<p>Copyright 2024-@year @symbolC</p>"
 		}

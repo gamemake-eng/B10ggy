@@ -1,8 +1,30 @@
 package.cpath = package.cpath.."./?.dll;./?.so;../lib/?.so;../lib/vc_dll/?.dll;../lib/bcc_dll/?.dll;../lib/mingw_dll/?.dll;"
 package.path = "./?.lua;../?.lua"
 
+--[[
+    B10ggy: Make simples blogs for the net
+    Copyright (C) 2024  michealtheratz
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+]]
+
 local args = {...}
 io.stdout:setvbuf('no')
+print([[
+B10ggy  Copyright (C) 2024 Michealtheratz
+This program comes with ABSOLUTELY NO WARRANTY; for details see LICENSE.txt.
+This is free software, and you are welcome to redistribute it
+under certain conditions; see LICENSE.txt for details.	
+]])
 print("Bloggy 0.0.1 'Yak'")
 local json = require("json")
 local function read_file(path)
@@ -76,7 +98,7 @@ if s then
 		for a,b in pairs(v) do
 			--print(a)
 			if a == "body" then
-				local htmlfile = read_file(b)
+				local htmlfile = read_file(dirp..b)
 				if htmlfile then
 					ff = ff:gsub("@"..a,htmlfile)
 				else
@@ -137,5 +159,5 @@ if s then
 	end
 	
 else
-	print("file not found")
+	print("settings.json not found! If it's in a diffrent directory or has a diffrent name run bloggy -s [file].json")
 end
