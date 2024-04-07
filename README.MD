@@ -18,7 +18,7 @@ There is only windows builds for now. All you have to do is unzip, drag the "Blo
 
 ##	This sucks and you're fat how do I compile this?
 
-1.	Download lua (5.2 recomended) and a C compiler (the build file uses [tcc](https://bellard.org/tcc/) but you can change it to fit your needs).
+1.	Download lua (5.3 recomended) and a C compiler (the build file uses [tcc](https://bellard.org/tcc/) but you can change it to fit your needs).
 
 2.	Download the lua C libary and includes (5.2 recomended. Windows dlls are labeled lua-5.2.4_Win32_dllw6_lib.zip) and extract the zip
 
@@ -26,7 +26,7 @@ There is only windows builds for now. All you have to do is unzip, drag the "Blo
 
 4.	If using tcc, get the dll file (or the equivalent on your system) and run tcc -impdef lua52.dll (replace dll with the equivalent on your system) and place the generated .def file in the libs folder of your instalation
 
-5.	If using tcc, you should be able to just run lua52 build.lua in the project directory. You might need to change this for your C compiler of choice.
+5.	If using tcc, you should be able to just run lua53 build.lua in the project directory. You might need to change this for your C compiler of choice.
 
 ##	Special Thanks!
 
