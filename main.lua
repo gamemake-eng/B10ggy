@@ -1,5 +1,7 @@
 package.cpath = package.cpath.."./?.dll;./?.so;../lib/?.so;../lib/vc_dll/?.dll;../lib/bcc_dll/?.dll;../lib/mingw_dll/?.dll;"
 package.path = "./?.lua;../?.lua"
+
+local args = {...}
 io.stdout:setvbuf('no')
 print("Bloggy 0.0.1 'Yak'")
 local json = require("json")
@@ -32,19 +34,33 @@ local function loadplugin(file)
 	local f = assert(loadfile(file))
 	return f()
 end
-local settings = read_file("settings.json")
-s = json.decode(settings)
+
+local settingsfilename = "settings.json"
+local dirp = ""
+for i,v in ipairs(args) do
+	if (args[i] == "--s") or (args[i] == "-s") or (args[i] == "--settings") or (args[i] == "-settings") then
+		settingsfilename = args[i+1]
+		dirp = settingsfilename:match("(.*/)")
+	end
+end
+
+local settings = read_file(settingsfilename)
+if settings then
+	s = json.decode(settings)
+else
+	s = nil
+end
 if s then
 	if s["plugins"] then
 		print("Loading plugins")
 		for k,v in pairs(s.plugins) do
-			s.plugins[k] = loadplugin(v)
+			s.plugins[k] = loadplugin(dirp..v)
 			
 		end
 	end
 	print("Reading "..s.blog)
-	local template = read_file(s.post_template)
-	local home_template = read_file(s.homepage_template)
+	local template = read_file(dirp..s.post_template)
+	local home_template = read_file(dirp..s.homepage_template)
 	local list = ""
 	local files = {}
 	for k,v in ipairs(s.posts) do
@@ -102,18 +118,18 @@ if s then
 	home_template = home_template:gsub("@time",os.date("%I:%M %p",os.time()))
 	
 	print("Saving")
-	local isdirok, direrr = isdir("out")
+	local isdirok, direrr = isdir(dirp.."out")
 	if not isdirok then
-		os.execute("mkdir out")
+		os.execute("mkdir ".. dirp.."out")
 	end
 	
-	local hpf = io.open("out/index.html", "wb")
+	local hpf = io.open(dirp.."out/index.html", "wb")
 	
 	hpf:write(home_template)
 	hpf:close()
 	
 	for k,v in ipairs(files) do
-		local tpf = io.open("out/"..v.name, "wb")
+		local tpf = io.open(dirp.."out/"..v.name, "wb")
 	
 		tpf:write(v.body)
 		tpf:close()
