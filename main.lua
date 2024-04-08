@@ -17,8 +17,6 @@ package.path = "./?.lua;../?.lua"
 
 ]]
 
---TO(NEVER)DO: Put each command in it's own seprate method and file
-
 local args = {...}
 io.stdout:setvbuf('no')
 print([[

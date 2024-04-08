@@ -1,0 +1,12 @@
+{
+		"posts":[
+			{
+				"body":"pages/gettingstarted.html",
+				"title":"Getting Started"
+			}
+		],
+		"homepage_template":"home.html",
+		"post_template":"post.html",
+		"author":"Michealtheratz",
+		"blog":"B10ggy documentation"
+}
