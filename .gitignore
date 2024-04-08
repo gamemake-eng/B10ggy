@@ -1,4 +1,5 @@
 example/out/
+testproject/
 build/
 test.lua
 *.exe

@@ -60,7 +60,7 @@ end
 local settingsfilename = "settings.json"
 local dirp = ""
 local mode = "build"
-
+local createpname = ""
 for i,v in ipairs(args) do
 	if args[i] == "build" then
 		settingsfilename = args[i+1]
@@ -68,11 +68,94 @@ for i,v in ipairs(args) do
 	end
 	
 	if args[i] == "create" then
-		local name = args[i+1]
-		print("not implemented")
+		mode = "create"
+		createpname = args[i+1]
+	end
+	
+	if args[i] == "help" then
+		mode = "help"
 	end
 	
 	
+end
+
+-- Help mode
+if mode == "help" then
+	print("create [project-name] - Creates a project")
+	print("build path/to/settings.json - Builds a project")
+end
+
+-- Create mode
+if mode == "create" then
+	local name = createpname
+	os.execute("mkdir "..name)
+	local sfs = io.open(name.."/settings.json","wb")
+	sfs:write([[{
+		"posts":[
+			{
+			"body":"Welcome to your new B10ggy project! You can replace this text with a filename!",
+			"title":"Hello World"
+			}
+		],
+		"homepage_template":"home.html",
+		"post_template":"post.html",
+		"author":"You",
+		"blog":"]]..name..[["
+}]])
+	sfs:close()
+	
+	local hfs = io.open(name.."/home.html","wb")
+	hfs:write([[<!DOCTYPE html>
+<html>
+<head>
+	<!--You can change anything you want!-->
+	<!--
+	List of valid homepage tags
+	
+	@blog - Name of blog (blog setting in settings.json)
+	@author - Author of blog (author setting in settings.json)
+	@list - Generated list of posts
+	@date - Current date when built
+	@time - Current time when built
+	-->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>@blog</title>
+	
+</head>
+<body>
+	<h1>@blog by @author</h1>
+	@list
+	<span>Last Updated @date at @time</span>
+	<p><a href="https://github.com/gamemake-eng/B10ggy"><img src="https://u.cubeupload.com/batmangreen/bloggyButton.png"/></a></p>
+</body>
+</html>]])
+	hfs:close()
+	
+	local pfs = io.open(name.."/post.html","wb")
+	pfs:write([[<!DOCTYPE html>
+<html>
+<head>
+<!--
+	List of valid post tags
+	
+	@title - Title of post (title setting)
+	@body - Body of post (body setting)
+	@... - Any other tags will be replaced by it's corsponding setting in the post
+	-->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>@title</title>
+	
+</head>
+<body>
+	<h1>@title</h1>
+	<p>@body</p>
+</body>
+</html>]])
+pfs:close()
+print("Project Created")
+print("Now you can build it with bloggy build "..name.."/settings.json or just bloggy build if you go into the project directory")
 end
 
 -- Build Mode
@@ -100,7 +183,7 @@ if mode == "build" then
 			local ff = template
 			print("Rendering '"..v.title.."'")
 			local it = ""
-			if s.home.item then
+			if s.home and s.home.item then
 				it = "<a href='./"..v.title:gsub(" ","_")..".html'>"..s.home.item:gsub("@title",v.title).."</a>\n"
 			else
 				it = "<a href='"..v.title:gsub(" ","_")..".html'>".."<p>"..v.title.."</p></a>\n"
@@ -156,7 +239,7 @@ if mode == "build" then
 		if s.folder_name then
 			foldername = s.folder_name
 		end
-		if s.home.file then
+		if s.home and s.home.file then
 			filenameout = s.home.file
 		end
 		local isdirok, direrr = isdir(dirp..foldername)
@@ -176,16 +259,17 @@ if mode == "build" then
 			tpf:close()
 			
 		end
-		
-		for k,v in pairs(s.public_files) do
-			local tpf = io.open(dirp..foldername.."/"..v, "wb")
-			if tpf == nil then
-				os.execute("mkdir ".. dirp..foldername.."/"..v:match("(.*/)"))
-				tpf = io.open(dirp..foldername.."/"..v, "wb")
+		if s.public_files then
+			for k,v in pairs(s.public_files) do
+				local tpf = io.open(dirp..foldername.."/"..v, "wb")
+				if tpf == nil then
+					os.execute("mkdir ".. dirp..foldername.."/"..v:match("(.*/)"))
+					tpf = io.open(dirp..foldername.."/"..v, "wb")
+				end
+				tpf:write(read_file(dirp..v))
+				tpf:close()
+				
 			end
-			tpf:write(read_file(dirp..v))
-			tpf:close()
-			
 		end
 	else
 		print("settings.json not found! If it's in a diffrent directory or has a diffrent name run bloggy build [file].json")
