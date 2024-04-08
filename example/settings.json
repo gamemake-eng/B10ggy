@@ -13,13 +13,12 @@
 	"posts": [
 		{
 			"title": "How I died",
-			"body": "posts/howidied.html",
-			"copyright": "<p>Copyright 2024-@year @symbolC</p>"
+			"body": "posts/howidied.html"
+			
 		},
 		{
 			"title": "I killed Manny lol",
-			"body": "posts/dog.html",
-			"copyright": "<p>Copyright 2024-@year @symbolC</p>"
+			"body": "posts/dog.html"
 		}
 	]
 
