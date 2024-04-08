@@ -10,7 +10,7 @@ Made something awesome with Bloggy? Why not add our button! Just copy and paste 
 
 `<a href="https://github.com/gamemake-eng/B10ggy"><img src="https://u.cubeupload.com/batmangreen/bloggyButton.png"/></a>`
 
-[img](https://u.cubeupload.com/batmangreen/bloggyButton.png)
+![Blog gee button](https://u.cubeupload.com/batmangreen/bloggyButton.png)
 
 ##	What is this?
 
