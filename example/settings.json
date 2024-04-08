@@ -3,6 +3,7 @@
 	"post_template": "template.html",
 	"homepage_template": "home.html",
 	"author": "Greg Heffley",
+	"public_files":["img/bloggyButton.png"],
 	
 	"plugins": {
 		"copyright": "copyright.lua"

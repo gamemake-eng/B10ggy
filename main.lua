@@ -59,105 +59,127 @@ end
 
 local settingsfilename = "settings.json"
 local dirp = ""
+local mode = "build"
+
 for i,v in ipairs(args) do
-	if (args[i] == "--s") or (args[i] == "-s") or (args[i] == "--settings") or (args[i] == "-settings") then
+	if args[i] == "build" then
 		settingsfilename = args[i+1]
 		dirp = settingsfilename:match("(.*/)")
 	end
+	
+	if args[i] == "create" then
+		local name = args[i+1]
+		print("not implemented")
+	end
+	
+	
 end
 
-local settings = read_file(settingsfilename)
-if settings then
-	s = json.decode(settings)
-else
-	s = nil
-end
-if s then
-	if s["plugins"] then
-		print("Loading plugins")
-		for k,v in pairs(s.plugins) do
-			s.plugins[k] = loadplugin(dirp..v)
-			
-		end
+-- Build Mode
+if mode == "build" then
+	local settings = read_file(settingsfilename)
+	if settings then
+		s = json.decode(settings)
+	else
+		s = nil
 	end
-	print("Reading "..s.blog)
-	local template = read_file(dirp..s.post_template)
-	local home_template = read_file(dirp..s.homepage_template)
-	local list = ""
-	local files = {}
-	for k,v in ipairs(s.posts) do
-		local ff = template
-		print("Rendering '"..v.title.."'")
-		local it = ""
-		if s.home.item then
-			it = "<a href='./"..v.title:gsub(" ","_")..".html'>"..s.home.item:gsub("@title",v.title).."</a>\n"
-		else
-			it = "<a href='"..v.title:gsub(" ","_")..".html'>".."<p>"..v.title.."</p></a>\n"
+	if s then
+		if s["plugins"] then
+			print("Loading plugins")
+			for k,v in pairs(s.plugins) do
+				s.plugins[k] = loadplugin(dirp..v)
+				
+			end
 		end
-		list=list..it
-		for a,b in pairs(v) do
-			--print(a)
-			if a == "body" then
-				local htmlfile = read_file(dirp..b)
-				if htmlfile then
-					ff = ff:gsub("@"..a,htmlfile)
-				else
-					ff = ff:gsub("@"..a,b)
-				end
-			elseif a == "author" then
-				ff = ff:gsub("@author",s.author)
+		print("Reading "..s.blog)
+		local template = read_file(dirp..s.post_template)
+		local home_template = read_file(dirp..s.homepage_template)
+		local list = ""
+		local files = {}
+		for k,v in ipairs(s.posts) do
+			local ff = template
+			print("Rendering '"..v.title.."'")
+			local it = ""
+			if s.home.item then
+				it = "<a href='./"..v.title:gsub(" ","_")..".html'>"..s.home.item:gsub("@title",v.title).."</a>\n"
 			else
-				if s.plugins then
-					if s.plugins[a] then
-						local o = s.plugins[a]:run(a,b)
-						ff = ff:gsub("@"..a,o)
+				it = "<a href='"..v.title:gsub(" ","_")..".html'>".."<p>"..v.title.."</p></a>\n"
+			end
+			list=list..it
+			for a,b in pairs(v) do
+				--print(a)
+				if a == "body" then
+					local htmlfile = read_file(dirp..b)
+					if htmlfile then
+						ff = ff:gsub("@"..a,htmlfile)
 					else
 						ff = ff:gsub("@"..a,b)
 					end
+				elseif a == "author" then
+					ff = ff:gsub("@author",s.author)
 				else
-					ff = ff:gsub("@"..a,b)
+					if s.plugins then
+						if s.plugins[a] then
+							local o = s.plugins[a]:run(a,b)
+							ff = ff:gsub("@"..a,o)
+						else
+							ff = ff:gsub("@"..a,b)
+						end
+					else
+						ff = ff:gsub("@"..a,b)
+					end
 				end
+				
+				
 			end
+			
+			table.insert(files, {name=v.title:gsub(" ","_")..".html",body=ff})
 			
 			
 		end
+
+		print("Rendering home page")
+
+		home_template = home_template:gsub("@blog",s.blog)
+
+		home_template = home_template:gsub("@list",list)
+
+		home_template = home_template:gsub("@author",s.author)
 		
-		table.insert(files, {name=v.title:gsub(" ","_")..".html",body=ff})
+		home_template = home_template:gsub("@date",os.date("%B %d, %Y",os.time()))
 		
+		home_template = home_template:gsub("@time",os.date("%I:%M %p",os.time()))
 		
+		print("Saving")
+		local isdirok, direrr = isdir(dirp.."out")
+		if not isdirok then
+			os.execute("mkdir ".. dirp.."out")
+		end
+		
+		local hpf = io.open(dirp.."out/index.html", "wb")
+		
+		hpf:write(home_template)
+		hpf:close()
+		
+		for k,v in ipairs(files) do
+			local tpf = io.open(dirp.."out/"..v.name, "wb")
+			
+			tpf:write(v.body)
+			tpf:close()
+			
+		end
+		
+		for k,v in pairs(s.public_files) do
+			local tpf = io.open(dirp.."out/"..v, "wb")
+			if tpf == nil then
+				os.execute("mkdir ".. dirp.."out/"..v:match("(.*/)"))
+				tpf = io.open(dirp.."out/"..v, "wb")
+			end
+			tpf:write(read_file(dirp..v))
+			tpf:close()
+			
+		end
+	else
+		print("settings.json not found! If it's in a diffrent directory or has a diffrent name run bloggy build [file].json")
 	end
-
-	print("Rendering home page")
-
-	home_template = home_template:gsub("@blog",s.blog)
-
-	home_template = home_template:gsub("@list",list)
-
-	home_template = home_template:gsub("@author",s.author)
-	
-	home_template = home_template:gsub("@date",os.date("%B %d, %Y",os.time()))
-	
-	home_template = home_template:gsub("@time",os.date("%I:%M %p",os.time()))
-	
-	print("Saving")
-	local isdirok, direrr = isdir(dirp.."out")
-	if not isdirok then
-		os.execute("mkdir ".. dirp.."out")
-	end
-	
-	local hpf = io.open(dirp.."out/index.html", "wb")
-	
-	hpf:write(home_template)
-	hpf:close()
-	
-	for k,v in ipairs(files) do
-		local tpf = io.open(dirp.."out/"..v.name, "wb")
-	
-		tpf:write(v.body)
-		tpf:close()
-		
-	end
-	
-else
-	print("settings.json not found! If it's in a diffrent directory or has a diffrent name run bloggy -s [file].json")
 end

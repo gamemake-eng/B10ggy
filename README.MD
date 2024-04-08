@@ -4,6 +4,14 @@
   <img src="https://u.cubeupload.com/batmangreen/Logo.png" alt="Blog gee low go"/>
 </p>
 
+##	Before you continue!
+
+Made something awesome with Bloggy? Why not add our button! Just copy and paste the code onto your site.
+
+`<a href="https://github.com/gamemake-eng/B10ggy"><img src="https://u.cubeupload.com/batmangreen/bloggyButton.png"/></a>`
+
+[img](https://u.cubeupload.com/batmangreen/bloggyButton.png)
+
 ##	What is this?
 
 Bloggy (stylized as B10ggy) is a lightweight SSG for the purpose of creating simple blogs to be shared on the internet with ANY static host ([Neocities](https://neocities.org/), [Nekoweb](https://nekoweb.org/), etc). All you need is 2 html files and a json file to get started. The exe is also only 19kb! Which is a whole lot more smaller than something like hugo (about 20MB!).
