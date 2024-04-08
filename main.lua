@@ -203,14 +203,8 @@ if mode == "build" then
 				else
 					if s.plugins then
 						if s.plugins[a] then
-							if s.plugins[a].is_widget then
-								--Does nothing
-							else
-								local o = s.plugins[a]:run(a,b)
-								ff = ff:gsub("@"..a,o)
-							end
-							
-							
+							local o = s.plugins[a]:run(a,b)
+							ff = ff:gsub("@"..a,o)
 						else
 							ff = ff:gsub("@"..a,b)
 						end
@@ -220,16 +214,6 @@ if mode == "build" then
 				end
 				
 				
-			end
-			if s.plugins then
-				for a, b in ipairs(s.plugins) do
-					print(a)
-					if s.plugins[a].is_widget then
-						--print(a)
-						local o = s.plugins[a]:run(a,s)
-						ff = ff:gsub("@"..a,o)
-					end
-				end
 			end
 			
 			table.insert(files, {name=v.title:gsub(" ","_")..".html",body=ff})
@@ -248,15 +232,6 @@ if mode == "build" then
 		home_template = home_template:gsub("@date",os.date("%B %d, %Y",os.time()))
 		
 		home_template = home_template:gsub("@time",os.date("%I:%M %p",os.time()))
-		
-		if s.plugins then
-				for a, b in ipairs(s.plugins) do
-					if s.plugins[a].is_widget then
-						local o = s.plugins[a]:run(a,"")
-						home_template = home_template:gsub("@"..a,o)
-					end
-				end
-		end
 		
 		print("Saving")
 		local foldername = "out"
