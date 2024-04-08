@@ -3,12 +3,15 @@
 	"post_template": "template.html",
 	"homepage_template": "home.html",
 	"author": "Greg Heffley",
-	"public_files":["img/bloggyButton.png"],
+	"public_files":["img/button/bloggyButton.png"],
 	"plugins": {
 		"copyright": "copyright.lua"
 	},
 	"home":{
-		"item": "<h2>@title</h2>"
+		"item": "<h2>@title</h2>",
+		"tags": {
+			"copyright": "<p>Copyright 2024-@year @symbolC</p>"
+		}
 	},
 	"posts": [
 		{
