@@ -4,7 +4,6 @@
 	"homepage_template": "home.html",
 	"author": "Greg Heffley",
 	"public_files":["img/bloggyButton.png"],
-	
 	"plugins": {
 		"copyright": "copyright.lua"
 	},

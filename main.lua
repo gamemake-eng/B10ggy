@@ -151,18 +151,26 @@ if mode == "build" then
 		home_template = home_template:gsub("@time",os.date("%I:%M %p",os.time()))
 		
 		print("Saving")
-		local isdirok, direrr = isdir(dirp.."out")
+		local foldername = "out"
+		local filenameout = "index.html"
+		if s.folder_name then
+			foldername = s.folder_name
+		end
+		if s.home.file then
+			filenameout = s.home.file
+		end
+		local isdirok, direrr = isdir(dirp..foldername)
 		if not isdirok then
-			os.execute("mkdir ".. dirp.."out")
+			os.execute("mkdir ".. dirp..foldername)
 		end
 		
-		local hpf = io.open(dirp.."out/index.html", "wb")
+		local hpf = io.open(dirp..foldername.."/"..filenameout, "wb")
 		
 		hpf:write(home_template)
 		hpf:close()
 		
 		for k,v in ipairs(files) do
-			local tpf = io.open(dirp.."out/"..v.name, "wb")
+			local tpf = io.open(dirp..foldername.."/"..v.name, "wb")
 			
 			tpf:write(v.body)
 			tpf:close()
@@ -170,10 +178,10 @@ if mode == "build" then
 		end
 		
 		for k,v in pairs(s.public_files) do
-			local tpf = io.open(dirp.."out/"..v, "wb")
+			local tpf = io.open(dirp..foldername.."/"..v, "wb")
 			if tpf == nil then
-				os.execute("mkdir ".. dirp.."out/"..v:match("(.*/)"))
-				tpf = io.open(dirp.."out/"..v, "wb")
+				os.execute("mkdir ".. dirp..foldername.."/"..v:match("(.*/)"))
+				tpf = io.open(dirp..foldername.."/"..v, "wb")
 			end
 			tpf:write(read_file(dirp..v))
 			tpf:close()
