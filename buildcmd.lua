@@ -1,4 +1,48 @@
-function build()
+local json = require("json")
+
+function split (inputstr, sep)
+        if sep == nil then
+                sep = "%s"
+        end
+        local t={}
+        for str in string.gmatch(inputstr, "([^"..sep.."]+)") do
+                table.insert(t, str)
+        end
+        return t
+end
+
+local function read_file(path)
+	local f = io.open(path,"rb")
+	if not f then return nil end
+	local c = f:read("*a")
+	
+	f:close()
+	return c
+end
+--- Check if a file or directory exists in this path
+function exists(file)
+   local ok, err, code = os.rename(file, file)
+   if not ok then
+      if code == 13 then
+         -- Permission denied, but it exists
+         return true
+      end
+   end
+   return ok, err
+end
+
+--- Check if a directory exists in this path
+function isdir(path)
+   -- "/" works on both Unix and Windows
+   return exists(path.."/")
+end
+local function loadplugin(file)
+	local f = assert(loadfile(file))
+	return f()
+end
+
+
+function build(settingsfilename, dirp)
 	local settings = read_file(settingsfilename)
 	if settings then
 		s = json.decode(settings)
