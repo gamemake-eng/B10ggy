@@ -77,7 +77,8 @@ function build(settingsfilename, dirp)
 				if a == "body" then
 					local htmlfile = read_file(dirp..b)
 					if htmlfile then
-						ff = ff:gsub("@"..a,htmlfile)
+						local fhf = htmlfile--:gsub("%","%%")
+						ff = ff:gsub("@"..a,fhf)
 					else
 						ff = ff:gsub("@"..a,b)
 					end

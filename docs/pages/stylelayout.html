@@ -1,0 +1,43 @@
+Unlike other JAM stack frameworks, it is very simple to add your own styling and layout to your sites! Here are some of the basics.
+<br>
+<h2>Templates</h2>
+<br>
+Templates are basicly skeletons for your posts and homepage. They are just basic html files. That means that you can style them using css, which is pretty awesome. You can basicly just create an inline style tag and do all of your css magic in there, but if you want them in seprate files you have to do some extra work which we will not be talking about right now. So maybe take a look in the home.html or post.html files and tinker a bit. Make sure to build your site every time you change something! NOTE: When using %% in css, make sure to type %%%% and not just a single %% or else you will get an error.
+<br>
+<h2>Tags</h2>
+<br>
+No, not html tags, I am talking about the Bloggy tag system. You are able to put anything in your post settings and refernece it with a tag like @this. Here is an example below.
+<br>
+settings.json<br>
+<pre><code>{
+		"posts":[
+			{
+				"body":"pages/howimadeamericafat.html",
+				"title":"Getting Started",
+				"face":"UwU"
+			}
+		],
+		"homepage_template":"home.html",
+		"post_template":"post.html",
+		"author":"Jow Byeden",
+		"blog":"Murica"
+}</code></pre>
+<br>
+post.html<br>
+<textarea readonly rows="4" style="background:none; border:none; resize:none; outline:none; width:100%%; height: 200px;">
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>@title</title>
+	
+</head>
+<body>
+	<h1>@title</h1>
+	<p>@body</p>
+	@face
+	<!--Should show "UwU" when compiled-->
+</body>
+</html>
+</textarea>

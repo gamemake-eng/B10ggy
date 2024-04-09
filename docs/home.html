@@ -2,24 +2,32 @@
 <html>
 <head>
 	<!--You can change anything you want!-->
-	<!--
-	List of valid homepage tags
 	
-	@blog - Name of blog (blog setting in settings.json)
-	@author - Author of blog (author setting in settings.json)
-	@list - Generated list of posts
-	@date - Current date when built
-	@time - Current time when built
-	-->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>@blog</title>
+	<style>
+		body {
+			font-family: monospace;
+		}
+		#con {
+			display: flex;
+			flex-direction: column;
+			align-content: center;
+			flex-wrap: nowrap;
+			justify-content: center;
+			align-items: center;
+		}
+	</style>
 	
 </head>
 <body>
-	<h1>@blog by @author</h1>
-	@list
-	<span>Last Updated @date at @time</span>
-	<p><a href="https://github.com/gamemake-eng/B10ggy"><img src="https://u.cubeupload.com/batmangreen/bloggyButton.png"/></a></p>
+	<div id="con">
+		<img src="https://camo.githubusercontent.com/ca586330e22407321d1b7c134e9f76f4bd60e68c3750f08c72c4b8cd4d7a08da/68747470733a2f2f752e6375626575706c6f61642e636f6d2f6261746d616e677265656e2f4c6f676f2e706e67"/>
+		<h1>@blog</h1>
+		@list
+		<span>Last Updated @date at @time</span>
+		<p><a href="https://github.com/gamemake-eng/B10ggy"><img src="https://u.cubeupload.com/batmangreen/bloggyButton.png"/></a></p>
+	</div>
 </body>
 </html>

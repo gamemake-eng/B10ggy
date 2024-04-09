@@ -1,23 +1,30 @@
 This assumes that you know how to use a computer, json, and the command prompt/terminal
 <br>
 Welcome to B10ggy! A simple SSG for creating simple blogs and websites like the one your are on now. Asumming you had already read the <a href="https://github.com/gamemake-eng/B10ggy">readme</a>, lets create our first project! It's really easy to get up and running, just open up a command prompt and run <code>path/to/bloggy.exe create [project name]</code> and it should create a simple project for you! Lets look at the settings.json file.
-
+<br>
+<pre>
 <code>
 {
-		//The "posts" setting is where you put in all of the posts on your site (required)
-		"posts":[
-			//These are the minimal required settings for each post. Every post
+	//The "posts" setting is where you put in all of the posts on your site (required)
+	"posts":[
+			//These are the minimal required settings for each post.
 			{
+				//You can replace the body with a path to a html file
 				"body":"Welcome to your new B10ggy project! You can replace this text with a filename!",
 				"title":"Hello World"
 			}
 			//To make a new post you just copy and paste the above (dont forget to add a comma to the end of the last item)
-		],
-		//This is where you point to the directory of the homepage skeleton
-		"homepage_template":"home.html",
-		"post_template":"post.html",
-		"author":"You",
+	],
+	//This is where you point to the directory of the homepage skeleton (will be covered in "Styling and Layout")
+	"homepage_template":"home.html",
+	//This is where you point to the directory of the post skeleton (will be covered in "Styling and Layout")
+	"post_template":"post.html",
+	//This is where you set the author attrbute (can be used with the @author tag in the homepage skeleton)
+	"author":"You",
+	//This is where you set the blog's name (can be used with the @blog tag in the homepage skeleton)
 		"blog":"testproject"
 }
-
 </code>
+</pre>
+<br>
+Want to learn more? Click "back to index" and look though any chapter.

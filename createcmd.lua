@@ -10,6 +10,10 @@ function create(name, isdir)
 			{
 				"body":"Welcome to your new B10ggy project! You can replace this text with a filename!",
 				"title":"Hello World"
+			},
+			{
+				"body":"Communism Rules! (help I am being held a gunpoint)",
+				"title":"Another One"
 			}
 		],
 		"homepage_template":"home.html",
@@ -27,11 +31,11 @@ function create(name, isdir)
 	<!--
 	List of valid homepage tags
 	
-	@blog - Name of blog (blog setting in settings.json)
-	@author - Author of blog (author setting in settings.json)
-	@list - Generated list of posts
-	@date - Current date when built
-	@time - Current time when built
+	@blog- Name of blog (blog setting in settings.json)
+	@author- Author of blog (author setting in settings.json)
+	@list- Generated list of posts
+	@date- Current date when built
+	@time- Current time when built
 	-->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -54,9 +58,9 @@ function create(name, isdir)
 <!--
 	List of valid post tags
 	
-	@title - Title of post (title setting)
-	@body - Body of post (body setting)
-	@... - Any other tags will be replaced by it's corsponding setting in the post
+	@title- Title of post (title setting)
+	@body- Body of post (body setting)
+	@...- Any other tags will be replaced by it's corsponding setting in the post
 	-->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">

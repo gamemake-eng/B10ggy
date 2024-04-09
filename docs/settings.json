@@ -3,6 +3,10 @@
 			{
 				"body":"pages/gettingstarted.html",
 				"title":"Getting Started"
+			},
+			{
+				"body":"pages/stylelayout.html",
+				"title":"Style and Layout"
 			}
 		],
 		"homepage_template":"home.html",
