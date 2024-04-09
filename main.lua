@@ -72,10 +72,11 @@ end
 
 local settingsfilename = "settings.json"
 local dirp = ""
-local mode = "build"
+local mode = "idk"
 local createpname = ""
 for i,v in ipairs(args) do
 	if args[i] == "build" then
+		mode = "build"
 		settingsfilename = args[i+1]
 		dirp = settingsfilename:match("(.*/)")
 	end
@@ -96,17 +97,12 @@ end
 if mode == "help" then
 	print("create [project-name] - Creates a project")
 	print("build path/to/settings.json - Builds a project")
-end
-
--- Create mode
-if mode == "create" then
+elseif mode == "create" then
 	local name = createpname
 	create(name,isdir)
 	
-end
-
--- Build Mode
-if mode == "build" then
+elseif mode == "build" then
 	build(settingsfilename,dirp)
-	
+else
+	print("Unknown. Type bloggy help for help")
 end

@@ -36,6 +36,8 @@ There is only windows builds for now. All you have to do is unzip, drag the "Blo
 
 5.	If using tcc, you should be able to just run lua53 build.lua in the project directory. You might need to change this for your C compiler of choice.
 
+6.	Or just install lua 5.2 or greater and run main.lua
+
 ##	Special Thanks!
 
 Thanks RXI for the [json.lua](https://github.com/rxi/json.lua) libary! It's the best pure lua json parser I found!
