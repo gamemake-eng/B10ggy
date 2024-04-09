@@ -4,3 +4,4 @@ os.execute('"'..luapath..'" luastatic.lua main.lua json.lua createcmd.lua buildc
 os.execute("tcc main.luastatic.c -llua52 -o build/bloggy.exe")
 os.execute('"'..luapath..'" main.lua build example/settings.json')
 os.execute('"'..luapath..'" main.lua build docs/settings.json')
+os.execute("move docs/out build/docs")
