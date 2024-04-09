@@ -8,7 +8,7 @@ Get to own Twitter but you have to become a neo-n***
 
 Or
 
-Have a gift card that can buy you anything in the world but everytime you use it you create one code leak in some random code base
+Have a gift card that can buy you anything in the world but everytime you use it you create one memory leak in some random code base
 ]]
 
 --[[
