@@ -2,6 +2,16 @@ package.cpath = package.cpath.."./?.dll;./?.so;../lib/?.so;../lib/vc_dll/?.dll;.
 package.path = "./?.lua;../?.lua"
 
 --[[
+Would you rather
+
+Get to own Twitter but you have to become a neo-n***
+
+Or
+
+Have a gift card that can buy you anything in the world but everytime you use it you create one code leak in some random code base
+]]
+
+--[[
     B10ggy: Make simples blogs for the net
     Copyright (C) 2024  michealtheratz
 
